@@ -34,7 +34,7 @@ const login =  async(req = request, res = response)=>{
 
     const token = await createJWT(usuario.id );
     try {
-        res.status(500).json({
+        res.json({
             usuario,
             token
         });
@@ -88,7 +88,16 @@ const googleSignIn = async (req =request, res = response, next)=>{
     next()
 }
 
+const renewToken = async (req = request, res= response)=>{
+    const {usuario} = req;
+    const token = await createJWT(usuario.id );
+    res.json({
+        usuario,
+        token
+    })
+}
 module.exports = {
     login,
-    googleSignIn
+    googleSignIn,
+    renewToken
 }
